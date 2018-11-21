@@ -1,7 +1,7 @@
 package com.odde.tdd;
 
 public class FizzBuzz {
-    public static String report(int num) {
+    public String report(int num) {
         if (num % 15 == 0) {
             return "FizzBuzz";
         } else if (num % 3 == 0) {

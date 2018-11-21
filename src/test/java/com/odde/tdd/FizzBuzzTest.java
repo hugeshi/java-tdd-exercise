@@ -5,27 +5,29 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class FizzBuzzTest {
+    FizzBuzz fizzBuzz = new FizzBuzz();
+
     @Test
     public void testMultiplesOfThree() {
-        assertEquals("Fizz", FizzBuzz.report(3));
-        assertEquals("Fizz", FizzBuzz.report(6));
+        assertEquals("Fizz", fizzBuzz.report(3));
+        assertEquals("Fizz", fizzBuzz.report(6));
     }
 
     @Test
     public void testMultiplesOfFive() {
-        assertEquals("Buzz", FizzBuzz.report(5));
-        assertEquals("Buzz", FizzBuzz.report(10));
+        assertEquals("Buzz", fizzBuzz.report(5));
+        assertEquals("Buzz", fizzBuzz.report(10));
     }
 
     @Test
     public void testNormalNumbers() {
-        assertEquals("1", FizzBuzz.report(1));
-        assertEquals("31", FizzBuzz.report(31));
+        assertEquals("1", fizzBuzz.report(1));
+        assertEquals("31", fizzBuzz.report(31));
     }
 
     @Test
     public void testFizzBuzz(){
-        assertEquals("FizzBuzz", FizzBuzz.report(15));
-        assertEquals("FizzBuzz", FizzBuzz.report(30));
+        assertEquals("FizzBuzz", fizzBuzz.report(15));
+        assertEquals("FizzBuzz", fizzBuzz.report(30));
     }
 }
