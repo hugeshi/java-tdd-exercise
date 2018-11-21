@@ -3,6 +3,14 @@ package com.odde.tdd;
 import java.time.YearMonth;
 
 public class Budget {
+    public YearMonth getMonth() {
+        return month;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
     private final YearMonth month;
     private final long amount;
 
