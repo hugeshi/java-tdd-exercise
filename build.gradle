@@ -13,3 +13,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
+
+task copy(type: Copy, group: "Custom", description: "Copies sources to the dest directory") {
+    from "src"
+    into "dest"
+}
