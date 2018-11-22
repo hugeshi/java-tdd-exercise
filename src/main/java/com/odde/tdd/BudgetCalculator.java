@@ -61,10 +61,6 @@ public class BudgetCalculator {
         return d.getMonth().length(d.isLeapYear());
     }
 
-    private double averageAmountOfMonth(LocalDate d) {
-        return (double)(visitor.getMonthAmount(d)) / daysOfMonth(d);
-    }
-
     /**
      * amountSum calculates sum of amount of given #days, according to budget setting from the month of given date
      * @param days number of days to sum amount
@@ -72,6 +68,6 @@ public class BudgetCalculator {
      * @return sum of amount of the days
      */
     private double amountSum(int days, LocalDate d) {
-        return averageAmountOfMonth(d) * days;
+        return visitor.getMonthAmount(d) * days / daysOfMonth(d);
     }
 }
