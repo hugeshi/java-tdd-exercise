@@ -14,26 +14,33 @@ public class BudgetCalculator {
         this.visitor = visitor;
     }
 
+    /**
+     * Calculate budget between given dates
+     * @param start start date, inclusive
+     * @param end end date, inclusive
+     * @return sum of budgets between start and end
+     */
     public long calcBudget(LocalDate start, LocalDate end) {
         long sum = amountTillMonthEnd(start) +
                 wholeYearMonthsBetween(start, end).stream().mapToLong(ym -> visitor.getAmount(ym)).sum() +
                 amountFromMonthStart(end);
-        if (start.getYear() == end.getYear() && start.getMonthValue() == end.getMonthValue()) {
+
+        if (yearMonth(start).equals(yearMonth(end))) {
             sum -= visitor.getAmount(yearMonth(start));
         }
+
         return sum;
     }
 
     private long amountTillMonthEnd(LocalDate d) {
-        int daysOfMonth = d.getMonth().length(d.isLeapYear());
+        int daysOfMonth = daysOfMonth(d);
         int days = daysOfMonth - d.getDayOfMonth() + 1;
-        return (long) ((double) visitor.getMonthAmount(d) / daysOfMonth * days);
+        return (long) amountSum(days, d);
     }
 
     private long amountFromMonthStart(LocalDate d) {
-        int daysOfMonth = d.getMonth().length(d.isLeapYear());
         int days = d.getDayOfMonth();
-        return (long) ((double) visitor.getMonthAmount(d) / daysOfMonth * days);
+        return (long) amountSum(days, d);
     }
 
     private List<YearMonth> wholeYearMonthsBetween(LocalDate start, LocalDate end) {
@@ -48,5 +55,23 @@ public class BudgetCalculator {
 
     private YearMonth yearMonth(LocalDate d) {
         return YearMonth.of(d.getYear(), d.getMonthValue());
+    }
+
+    private int daysOfMonth(LocalDate d) {
+        return d.getMonth().length(d.isLeapYear());
+    }
+
+    private double averageAmountOfMonth(LocalDate d) {
+        return (double)(visitor.getMonthAmount(d)) / daysOfMonth(d);
+    }
+
+    /**
+     * amountSum calculates sum of amount of given #days, according to budget setting from the month of given date
+     * @param days number of days to sum amount
+     * @param d date from a month
+     * @return sum of amount of the days
+     */
+    private double amountSum(int days, LocalDate d) {
+        return averageAmountOfMonth(d) * days;
     }
 }
